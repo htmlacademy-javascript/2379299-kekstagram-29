@@ -1,15 +1,16 @@
 // Функция которая возвращает целые числа.
-import {takeNumber} from './take-number .js';
-takeNumber();
-
+import {takeNumber} from './take-number.js';
 // Функция которая возвращает целые числа.
 import {flipOver} from './flip-over.js';
-flipOver('Лёша на полке клопа нашёл');
-
 // Функция для проверки длины строки.
 import {checkingLength} from './checking-length.js';
-checkingLength('Строка', 1);
+// Функция которая возвращает массив случайных обьектов с коментариями
+import {allObjects} from './date.js';
+// Функция которая отрисовывает миниатюры
+import {thumbnailRenderer} from './thumbnail-renderer.js';
 
-// Функция которая возвращает все обьекты с коментариямим
-import {AllObjects} from'./date.js';
-AllObjects();
+takeNumber();
+flipOver('Лёша на полке клопа нашёл');
+checkingLength('Строка', 1);
+thumbnailRenderer(allObjects());
+

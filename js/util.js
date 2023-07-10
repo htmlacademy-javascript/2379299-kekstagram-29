@@ -28,6 +28,5 @@ function getUniq(min, max){
   };
 }
 
-export{getRandomInteger};
-export{getRandomElementArray};
-export{getUniq};
+export{getRandomInteger, getRandomElementArray, getUniq};
+
