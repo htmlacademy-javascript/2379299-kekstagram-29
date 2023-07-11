@@ -77,5 +77,5 @@ const createObjects = () => {
   };
 };
 
-const AllObjects = () => Array.from({length: 25}, createObjects);
-export {AllObjects};
+const allObjects = () => Array.from({length: 25}, createObjects);
+export {allObjects};
