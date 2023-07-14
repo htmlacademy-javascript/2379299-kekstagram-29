@@ -1,5 +1,5 @@
 // Функция которая отрисовывает миниатюры
-const thumbnailRenderer = (thumbnailPictures) => {
+const rendererThumbnail = (thumbnailPictures) => {
   const thumbnailElementFragment = document.createDocumentFragment();
   // Контейнер для изображений от других пользователей
   const picturesContainer = document.querySelector('.pictures');
@@ -18,6 +18,6 @@ const thumbnailRenderer = (thumbnailPictures) => {
   picturesContainer.appendChild(thumbnailElementFragment);
 };
 
-export {thumbnailRenderer};
+export {rendererThumbnail};
 
 
