@@ -4,17 +4,17 @@ import {takeNumber} from './take-number.js';
 import {flipOver} from './flip-over.js';
 // Функция для проверки длины строки.
 import {checkingLength} from './checking-length.js';
-
 // Массив случайных обьектов с коментариями
 import {allObjects} from './date.js';
 // Функция которая отрисовывает миниатюры
 import {rendererThumbnail} from './renderer-thumbnail.js';
-
+// Функция которая отрисовывает большие картинки
 import {rendererBigPicture} from './renderer-big-pictures.js';
 
+// import {rendererBigPictureComment} from './renderer--big-pictures-comment.js';
 
 takeNumber();
 flipOver('Лёша на полке клопа нашёл');
 checkingLength('Строка', 1);
 rendererThumbnail(allObjects);
-rendererBigPicture();
+
