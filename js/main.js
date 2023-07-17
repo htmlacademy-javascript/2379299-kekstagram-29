@@ -9,9 +9,7 @@ import {allObjects} from './date.js';
 // Функция которая отрисовывает миниатюры
 import {rendererThumbnail} from './renderer-thumbnail.js';
 // Функция которая отрисовывает большие картинки
-import {rendererBigPicture} from './renderer-big-pictures.js';
-
-// import {rendererBigPictureComment} from './renderer--big-pictures-comment.js';
+import './object-picture.js';
 
 takeNumber();
 flipOver('Лёша на полке клопа нашёл');
