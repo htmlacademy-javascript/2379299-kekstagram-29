@@ -12,7 +12,6 @@ const rendererBigPictureComments = (dataComments, thumbnailElementFragmentCommen
     comment.querySelector('.social__text').textContent = message;
 
     thumbnailElementFragmentComment.appendChild(comment);
-
   });
 };
 

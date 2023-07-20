@@ -11,7 +11,6 @@
 
 
 import {allObjects} from './date.js';
-console.log(allObjects)
 
 // Функция которая получает данные
 const getDataСurrentThumbnail = (id)=>{

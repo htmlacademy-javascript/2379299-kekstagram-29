@@ -10,6 +10,7 @@ const bigPictureSocial = document.querySelector('.big-picture__social');
 const closeModal = (modal) => {
   modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  
 };
 
 const openModal = (modal) => {
@@ -20,10 +21,11 @@ const openModal = (modal) => {
 };
 
 const onThumbnailClick = (evt) => {
+
   if (evt.target.nodeName === 'IMG'){
+    // evt.preventDefault();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     openModal(bigPicture);
-    const data = getDataСurrentThumbnail(evt.target.id);
-    rendererBigPicture(data);
+
   }
 };
 
