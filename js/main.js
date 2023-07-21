@@ -13,6 +13,8 @@ import './object-picture.js';
 
 
 import './user-form.js';
+import './scale.js';
+import './slider.js';
 
 takeNumber();
 flipOver('Лёша на полке клопа нашёл');
