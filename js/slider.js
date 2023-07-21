@@ -42,38 +42,40 @@ const valueEffect = document.querySelector('.effect-level__value');//Урове�
 const imgPreview = document.querySelector('.img-upload__preview');//Изображение на которое накладываются фильтры
 const sliderElement = document.querySelector('.effect-level__slider');//Cлайдер
 const effectsList = document.querySelector('.effects__list');
+const containerSlider = document.querySelector('.img-upload__effect-level');
 
 noUiSlider.create(sliderElement, {
 
   range:{
     min: 0,
-    max: 1,
+    max: 100,
   },
-  start: 0,
+  start: 100,
   step: 0.01,
   connect: 'lower',
 
 });
 
 let effectName;
-console.log('3333333333',effectName);
-
-
-
 
 const onEffectsClick = (evt) => {
   if (evt.target.nodeName === 'SPAN'){
     const effectClass = evt.target.classList[1];
     effectName = effectClass.split('--')[1];
-    console.log(effectName)
-    
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: effects[effectName].min,
-        max: effects[effectName].max,
-      },
-      step:effects[effectName].step,
-    });
+
+    if (effectName === 'none') {
+      containerSlider.classList.add('hidden');
+    } else {
+      containerSlider.classList.remove('hidden');
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: effects[effectName].min,
+          max: effects[effectName].max,
+        },
+        step:effects[effectName].step,
+        start:effects[effectName].max,
+      });
+    }
   }
 };
 
@@ -86,6 +88,3 @@ sliderElement.noUiSlider.on('update', () => {
 });
 
 effectsList.addEventListener('click', onEffectsClick);
-
-
-
