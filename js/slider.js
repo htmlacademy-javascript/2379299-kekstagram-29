@@ -1,40 +1,47 @@
 // Объект с настройками для каждого эффекта
 const effects = {
   chrome: {
-    filter: 'grayscale',
+    name: 'grayscale',
     min: 0,
     max: 1,
     step: 0.1,
+    unit: '',
   },
   sepia: {
-    filter: 'sepia',
+    name: 'sepia',
     min: 0,
     max: 1,
     step: 0.1,
+    unit: '',
   },
   marvin: {
-    filter: 'invert',
+    name: 'invert',
     min: 0,
     max: 100,
     step: 1,
+    unit: '%',
   },
   phobos: {
-    filter: 'blur',
+    name: 'blur',
     min: 0,
     max: 3,
     step: 0.1,
+    unit: 'px',
   },
   heat: {
-    filter: 'brightness',
+    name: 'brightness',
     min: 1,
     max: 3,
     step: 0.1,
-  },
+    unit: '',
+  }
 };
+
 
 const valueEffect = document.querySelector('.effect-level__value');//Уровень эффекта записываем значение слайдера
 const imgPreview = document.querySelector('.img-upload__preview');//Изображение на которое накладываются фильтры
 const sliderElement = document.querySelector('.effect-level__slider');//Cлайдер
+const effectsList = document.querySelector('.effects__list');
 
 noUiSlider.create(sliderElement, {
 
@@ -42,15 +49,43 @@ noUiSlider.create(sliderElement, {
     min: 0,
     max: 1,
   },
-  start: 0.5,
-  step: 0.1,
+  start: 0,
+  step: 0.01,
   connect: 'lower',
+
 });
+
+let effectName;
+console.log('3333333333',effectName);
+
+
+
+
+const onEffectsClick = (evt) => {
+  if (evt.target.nodeName === 'SPAN'){
+    const effectClass = evt.target.classList[1];
+    effectName = effectClass.split('--')[1];
+    console.log(effectName)
+    
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: effects[effectName].min,
+        max: effects[effectName].max,
+      },
+      step:effects[effectName].step,
+    });
+  }
+};
 
 sliderElement.noUiSlider.on('update', () => {
   valueEffect.value = sliderElement.noUiSlider.get();
-  // imgPreview.style.filter = `grayscale(valueEffect.value)`         `scale(${parseInt(inputSizePicture.value) * 0.01})`;
-  console.log('111111', valueEffect.value);
+  if(effectName && effects[effectName]) {
+    imgPreview.style.filter = `${effects[effectName].name}(${valueEffect.value}${effects[effectName].unit})`;
+  }
+
 });
+
+effectsList.addEventListener('click', onEffectsClick);
+
 
 
