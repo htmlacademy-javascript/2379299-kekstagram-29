@@ -29,4 +29,3 @@ function getUniq(min, max){
 }
 
 export{getRandomInteger, getRandomElementArray, getUniq};
-

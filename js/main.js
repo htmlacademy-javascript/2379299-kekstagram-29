@@ -11,6 +11,9 @@ import {rendererThumbnail} from './renderer-thumbnail.js';
 // Функция которая отрисовывает большие картинки
 import './object-picture.js';
 
+
+import './user-form.js';
+
 takeNumber();
 flipOver('Лёша на полке клопа нашёл');
 checkingLength('Строка', 1);
