@@ -55,6 +55,5 @@ imageInput.addEventListener('change', () => {
   formForPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-
   pristine.validate();
 });
