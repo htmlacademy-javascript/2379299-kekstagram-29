@@ -1,31 +1,55 @@
-//Генерация рандомного числа
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+const ALERT_SHOW_TIME = 5000;
+
+const showMessage = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
 };
 
-//Генерация рандомного числа из массива
-const getRandomElementArray = (x) => x[getRandomInteger(0, x.length - 1)];
+const templateErrorAlert = document.querySelector('#error').content.querySelector('.error');
+const templateSuccessAlert = document.querySelector('#success').content.querySelector('.success');
 
-//Генерация рандомного числа и проверка его уникальности
-function getUniq(min, max){
-  const previousValues = [];
-  return function (){
-    let currentValue = getRandomInteger(min, max);
 
-    if (previousValues.length >= (max - min + 1)) {
-      return 'NAN';
+const showAlert = (xxx) => {
+  const thumbnailElement = xxx.cloneNode(true);
+  document.body.append(thumbnailElement);
+  const button = thumbnailElement.querySelector('button');
+  const Inner = thumbnailElement.querySelector('div');
+
+  button.addEventListener('click', () => {
+    thumbnailElement.remove();
+  });
+
+  document.addEventListener('click', (evt) => {
+    if (evt.target !== Inner) {
+      thumbnailElement.remove();
     }
+  });
 
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      thumbnailElement.remove();
     }
+  });
+};
 
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
+const showError = () => showAlert(templateErrorAlert);
 
-export{getRandomInteger, getRandomElementArray, getUniq};
+const showSuccess = () => showAlert(templateSuccessAlert);
+
+export {showError, showSuccess, showMessage};

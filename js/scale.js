@@ -12,17 +12,17 @@ const SizePicture = document.querySelector('.img-upload__preview');
 
 
 battonSmaller.addEventListener('click', () => {
-  if (parseInt(inputSizePicture.value) > SCALE.MIN){
-    inputSizePicture.value = (parseInt(inputSizePicture.value) - SCALE.STEP) + '%'
-    SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value) * 0.01})`;
+  if (parseInt(inputSizePicture.value, 10) > SCALE.MIN){
+    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) - SCALE.STEP)} + '%'`;
+    SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
 
   }
 });
 
 battonBigger.addEventListener('click', () => {
-  if (parseInt(inputSizePicture.value) < SCALE.MAX){
-    inputSizePicture.value = (parseInt(inputSizePicture.value) + SCALE.STEP) + '%'
-    SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value) * 0.01})`;
+  if (parseInt(inputSizePicture.value, 10) < SCALE.MAX){
+    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) + SCALE.STEP)} + '%'`;
+    SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
   }
 });
 

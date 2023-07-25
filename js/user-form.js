@@ -1,15 +1,27 @@
+
+import {sendData} from './api.js';
+// import {showAlertError} from './util.js';
+import {showError, showSuccess} from './util.js';
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
+
 const imageInput = document.querySelector('.img-upload__form');
 const formForPicture = document.querySelector('.img-upload__overlay');
 const buttonClose = document.querySelector('.img-upload__cancel');
 const hashtagsInput = formForPicture.querySelector('.text__hashtags');
-
+const submitButton = formForPicture.querySelector('.img-upload__submit');
+//перенести потом в другой модуль imageInput.reset(); 2
 const closeModal = (modal) => {
   modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  imageInput.reset();
 };
 //перенести потом в другой модуль
 buttonClose.addEventListener('click', () => {
   closeModal(formForPicture);
+  imageInput.reset();
 });
 //перенести потом в другой модуль
 document.addEventListener('keydown', (evt) => {
@@ -57,3 +69,38 @@ imageInput.addEventListener('change', () => {
 
   pristine.validate();
 });
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  imageInput.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          onSuccess(formForPicture);
+          showSuccess();
+        })
+        .catch(() => {
+          showError();
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+
+export {setUserFormSubmit};
+export {closeModal};
+
+
