@@ -1,24 +1,9 @@
-// // Функция которая получает данные
-// const getDataСurrentThumbnail = (currentThumbnail)=>{
-//   const imgThumbnail = currentThumbnail.querySelector('.picture__img').src;
-//   const infoThumbnail = currentThumbnail.querySelector('.picture__img').alt;
-//   const commentsThumbnail = currentThumbnail.querySelector('.picture__comments').textContent;
-//   const likeshumbnail = currentThumbnail.querySelector('.picture__likes').textContent;
-//   return {imgThumbnail, infoThumbnail, commentsThumbnail, likeshumbnail };
-// };
+import {allObjects} from './main.js';
 
-// export{getDataСurrentThumbnail};
-
-
-import {allObjects} from './date.js';
 
 // Функция которая получает данные
 const getDataСurrentThumbnail = (id)=>{
-  const currentIdThumbnail = allObjects.filter((element) => {
-    console.log('----', element.id, parseInt(id));
-    return element.id === parseInt(id);
-
-  });
+  const currentIdThumbnail = allObjects.filter((element) => element.id === parseInt(id, 10));
   return currentIdThumbnail;
 };
 

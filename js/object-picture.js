@@ -25,7 +25,8 @@ const onThumbnailClick = (evt) => {
   if (evt.target.nodeName === 'IMG'){
     // evt.preventDefault();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     openModal(bigPicture);
-
+    const data = getDataСurrentThumbnail(evt.target.id);
+    rendererBigPicture(data);
   }
 };
 
