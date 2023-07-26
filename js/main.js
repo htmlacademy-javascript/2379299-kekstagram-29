@@ -14,14 +14,16 @@ let allObjects = [];
 export{allObjects };
 
 import {showMessage} from './util.js';
-import { setCoatClick, setEyesClick } from './sort.js';
+import { setDefaultsClick, setRandomClick, setDiscussedClick } from './sort.js';
 
 getData()
   .then((postArray) => {
     rendererThumbnail(postArray);
     allObjects = postArray;
-    setEyesClick(postArray, rendererThumbnail);
-    setCoatClick(postArray, rendererThumbnail);
+    setDefaultsClick(postArray, rendererThumbnail);
+    setRandomClick(postArray, rendererThumbnail);
+    setDiscussedClick(postArray, rendererThumbnail);
+
   })
   .catch(
     (err) => {
@@ -29,3 +31,4 @@ getData()
     }
   );
 setUserFormSubmit(closeModal);
+
