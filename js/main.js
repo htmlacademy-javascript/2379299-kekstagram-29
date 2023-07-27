@@ -1,5 +1,6 @@
 // Функция которая отрисовывает миниатюры
 import {rendererThumbnail} from './renderer-thumbnail.js';
+
 // Функция которая отрисовывает большие картинки
 import './object-picture.js';
 import './user-form.js';
@@ -13,10 +14,16 @@ let allObjects = [];
 export{allObjects };
 
 import {showMessage} from './util.js';
+import { setDefaultsClick, setRandomClick, setDiscussedClick } from './sort.js';
+
 
 getData()
   .then((postArray) => {
     rendererThumbnail(postArray);
+    setDefaultsClick(postArray, rendererThumbnail);
+    setRandomClick(postArray, rendererThumbnail);
+    setDiscussedClick(postArray, rendererThumbnail);
+
     allObjects = postArray;
   })
   .catch(
@@ -25,3 +32,4 @@ getData()
     }
   );
 setUserFormSubmit(closeModal);
+

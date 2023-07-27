@@ -5,6 +5,8 @@ const rendererThumbnail = (thumbnailPictures) => {
   const picturesContainer = document.querySelector('.pictures');
   // Шаблон изображения случайного пользователя
   const templatePicture = document.querySelector('#picture').content.querySelector('A');
+  const filtersContainer = document.querySelector('.img-filters');
+  filtersContainer.classList.remove('img-filters--inactive');
 
   thumbnailPictures.forEach(({url, description, likes, comments, id})=>{
     const thumbnailElement = templatePicture.cloneNode(true);
@@ -17,6 +19,7 @@ const rendererThumbnail = (thumbnailPictures) => {
   });
 
   picturesContainer.appendChild(thumbnailElementFragment);
+
 };
 
 export {rendererThumbnail};
