@@ -1,16 +1,15 @@
-const COUNT_IMG = 10;
- // Контейнер для изображений от других пользователей
- const picturesContainer = document.querySelector('.pictures');
+import {debounce} from './util.js';
 
+const COUNT_IMG = 10;
 
 function getRandomElements(arr, count) {
-  let shuffled = [...arr];
+  const shuffled = [...arr];
   let i = arr.length;
-  let min = i - count > 0 ? i - count : 0;
+  const min = i - count > 0 ? i - count : 0;
 
   while (i-- > min) {
-    let index = Math.floor((i + 1) * Math.random());
-    let temp = shuffled[index];
+    const index = Math.floor((i + 1) * Math.random());
+    const temp = shuffled[index];
     shuffled[index] = shuffled[i];
     shuffled[i] = temp;
   }
@@ -18,7 +17,7 @@ function getRandomElements(arr, count) {
   return shuffled.slice(min);
 }
 
-
+const RERENDER_DELAY = 500;
 
 const buttonFilterDefault = document.querySelector('#filter-default');
 const buttonFilterRandom = document.querySelector('#filter-random');
@@ -36,19 +35,27 @@ const setDefaultsClick = (data, cb) => {
 };
 
 const setRandomClick = (data, cb) => {
-  buttonFilterRandom.addEventListener('click', () => {
-    let dataRandom = getRandomElements(data, COUNT_IMG);
+  let dataRandom; // Объявляем dataRandom здесь, чтобы его можно было использовать внутри обеих функций
+
+  const renderDataRandom = () => {
+    dataRandom = getRandomElements(data, COUNT_IMG);
     const allImg = document.querySelectorAll('a.picture');
     allImg.forEach((img) => {
       img.remove();
     });
     cb(dataRandom);
+  };
+
+  const debouncedRender = debounce(renderDataRandom, RERENDER_DELAY);
+
+  buttonFilterRandom.addEventListener('click', () => {
+    debouncedRender();
   });
 };
 
 const setDiscussedClick = (data, cb) => {
   buttonFilterDiscussed.addEventListener('click', () => {
-    const result = data.sort((a, b) => {
+    const result = [...data].sort((a, b) => {
       if (b.comments.length > a.comments.length) {
         return 1;
       }
@@ -57,6 +64,7 @@ const setDiscussedClick = (data, cb) => {
       }
       return 0;
     });
+
     const allImg = document.querySelectorAll('a.picture');
     allImg.forEach((img) => {
       img.remove();

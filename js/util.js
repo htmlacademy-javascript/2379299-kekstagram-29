@@ -52,4 +52,12 @@ const showError = () => showAlert(templateErrorAlert);
 
 const showSuccess = () => showAlert(templateSuccessAlert);
 
-export {showError, showSuccess, showMessage};
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {showError, showSuccess, showMessage, debounce};

@@ -19,8 +19,6 @@ const rendererThumbnail = (thumbnailPictures) => {
   });
 
   picturesContainer.appendChild(thumbnailElementFragment);
-console.log(1111111111111,picturesContainer)
-
 
 };
 

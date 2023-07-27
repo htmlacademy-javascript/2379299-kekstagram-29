@@ -16,14 +16,15 @@ export{allObjects };
 import {showMessage} from './util.js';
 import { setDefaultsClick, setRandomClick, setDiscussedClick } from './sort.js';
 
+
 getData()
   .then((postArray) => {
     rendererThumbnail(postArray);
-    allObjects = postArray;
     setDefaultsClick(postArray, rendererThumbnail);
     setRandomClick(postArray, rendererThumbnail);
     setDiscussedClick(postArray, rendererThumbnail);
 
+    allObjects = postArray;
   })
   .catch(
     (err) => {
