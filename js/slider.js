@@ -50,7 +50,7 @@ noUiSlider.create(sliderElement, {
     min: 0,
     max: 100,
   },
-  start: 100,
+  start: 0,
   step: 0.01,
   connect: 'lower',
 
@@ -64,8 +64,10 @@ const onEffectsClick = (evt) => {
     effectName = effectClass.split('--')[1];
 
     if (effectName === 'none') {
+      imgPreview.style.filter = 'none';
       containerSlider.classList.add('hidden');
-      sliderElement.noUiSlider.reset();
+
+
     } else {
       containerSlider.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({

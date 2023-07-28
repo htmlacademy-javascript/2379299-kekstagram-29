@@ -26,6 +26,8 @@ buttonClose.addEventListener('click', () => {
   imageInput.reset();
   document.querySelector('.img-upload__preview').style.transform = '';
   document.querySelector('.effect-level__slider').noUiSlider.reset();
+  document.querySelector('.img-upload__preview').style.filter = 'none';
+  document.querySelector('.img-upload__effect-level').classList.add('hidden');
 });
 // перенести потом в другой модуль
 document.addEventListener('keydown', (evt) => {
@@ -34,6 +36,8 @@ document.addEventListener('keydown', (evt) => {
     imageInput.reset();
     document.querySelector('.img-upload__preview').style.transform = '';
     document.querySelector('.effect-level__slider').noUiSlider.reset();
+    document.querySelector('.img-upload__preview').style.filter = 'none';
+    document.querySelector('.img-upload__effect-level').classList.add('hidden');
   }
 });
 

@@ -37,6 +37,7 @@ const showAlert = (xxx) => {
       thumbnailElement.remove();
       document.querySelector('.img-upload__preview').style.transform = '';
       document.querySelector('.effect-level__slider').noUiSlider.reset();
+      document.querySelector('.img-upload__effect-level').classList.add('hidden');
     }
   });
 
@@ -47,7 +48,8 @@ const showAlert = (xxx) => {
     if(xxx === templateSuccessAlert){
       thumbnailElement.remove();
       document.querySelector('.img-upload__preview').style.transform = '';
-      // document.querySelector('.effect-level__slider').noUiSlider.reset();
+      document.querySelector('.effect-level__slider').noUiSlider.reset();
+      document.querySelector('.img-upload__effect-level').classList.add('hidden');
     }
   });
 
