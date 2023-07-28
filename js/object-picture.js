@@ -15,8 +15,8 @@ const closeModal = (modal) => {
 const openModal = (modal) => {
   modal.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  bigPictureSocial.querySelector('.social__comment-count').classList.add('hidden');
-  bigPictureSocial.querySelector('.comments-loader').classList.add('hidden');
+  // bigPictureSocial.querySelector('.social__comment-count').classList.add('hidden');
+  // bigPictureSocial.querySelector('.comments-loader').classList.add('hidden');
 };
 
 const onThumbnailClick = (evt) => {

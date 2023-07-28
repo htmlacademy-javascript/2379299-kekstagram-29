@@ -19,7 +19,7 @@ const rendererThumbnail = (thumbnailPictures) => {
     thumbnailElement.querySelector('.picture__comments').textContent = comments.length;
 
     thumbnailElement.addEventListener('click', onThumbnailClick);
-    
+
     thumbnailElementFragment.appendChild(thumbnailElement);
   });
 
