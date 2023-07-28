@@ -4,7 +4,6 @@ import {getDataСurrentThumbnail} from './get-data-current-thumbnail.js';
 import {rendererBigPicture} from './renderer-big-picture.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const picturesContainer = document.querySelector('.pictures');
 const bigPictureSocial = document.querySelector('.big-picture__social');
 
 const closeModal = (modal) => {
@@ -21,13 +20,10 @@ const openModal = (modal) => {
 };
 
 const onThumbnailClick = (evt) => {
-
-  if (evt.target.nodeName === 'IMG'){
-    // evt.preventDefault();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    openModal(bigPicture);
-    const data = getDataСurrentThumbnail(evt.target.id);
-    rendererBigPicture(data);
-  }
+  evt.preventDefault();
+  openModal(bigPicture);
+  const data = getDataСurrentThumbnail(evt.target.id);
+  rendererBigPicture(data);
 };
 
 const buttonClose = document.querySelector('.big-picture__cancel');
@@ -41,6 +37,5 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-// Функция которая отрисовывает большие картинки вставляя в них данные
-picturesContainer.addEventListener('click', onThumbnailClick);
 
+export {onThumbnailClick};

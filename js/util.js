@@ -30,21 +30,36 @@ const showAlert = (xxx) => {
   document.body.append(thumbnailElement);
   const button = thumbnailElement.querySelector('button');
   const Inner = thumbnailElement.querySelector('div');
+  const successTitle = thumbnailElement.querySelector ('h2');
 
   button.addEventListener('click', () => {
-    thumbnailElement.remove();
+    if(xxx === templateSuccessAlert){
+      thumbnailElement.remove();
+      document.querySelector('.img-upload__preview').style.transform = '';
+      document.querySelector('.effect-level__slider').noUiSlider.reset();
+    }
   });
 
   document.addEventListener('click', (evt) => {
-    if (evt.target !== Inner) {
+    if (evt.target !== Inner && evt.target !== successTitle) {
       thumbnailElement.remove();
+    }
+    if(xxx === templateSuccessAlert){
+      thumbnailElement.remove();
+      document.querySelector('.img-upload__preview').style.transform = '';
+      // document.querySelector('.effect-level__slider').noUiSlider.reset();
     }
   });
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+    if (evt.key === 'Escape' && xxx === templateSuccessAlert) {
       thumbnailElement.remove();
+      document.querySelector('.img-upload__preview').style.transform = '';
+      // document.querySelector('.effect-level__slider').noUiSlider.reset();
     }
+
+     thumbnailElement.remove();
+
   });
 };
 

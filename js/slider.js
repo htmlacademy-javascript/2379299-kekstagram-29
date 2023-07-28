@@ -65,6 +65,7 @@ const onEffectsClick = (evt) => {
 
     if (effectName === 'none') {
       containerSlider.classList.add('hidden');
+      sliderElement.noUiSlider.reset();
     } else {
       containerSlider.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({

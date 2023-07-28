@@ -1,3 +1,5 @@
+import { onThumbnailClick } from "./object-picture.js";
+
 // Функция которая отрисовывает миниатюры
 const rendererThumbnail = (thumbnailPictures) => {
   const thumbnailElementFragment = document.createDocumentFragment();
@@ -15,6 +17,9 @@ const rendererThumbnail = (thumbnailPictures) => {
     thumbnailElement.querySelector('.picture__img').alt = description;
     thumbnailElement.querySelector('.picture__likes').textContent = likes;
     thumbnailElement.querySelector('.picture__comments').textContent = comments.length;
+
+    thumbnailElement.addEventListener('click', onThumbnailClick);
+    
     thumbnailElementFragment.appendChild(thumbnailElement);
   });
 

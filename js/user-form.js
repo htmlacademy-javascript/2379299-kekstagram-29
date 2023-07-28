@@ -12,22 +12,28 @@ const formForPicture = document.querySelector('.img-upload__overlay');
 const buttonClose = document.querySelector('.img-upload__cancel');
 const hashtagsInput = formForPicture.querySelector('.text__hashtags');
 const submitButton = formForPicture.querySelector('.img-upload__submit');
+const textDescription = formForPicture.querySelector('.text__description');
 //перенести потом в другой модуль imageInput.reset(); 2
 const closeModal = (modal) => {
   modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   imageInput.reset();
+  document.querySelector('.img-upload__preview').style.transform = '';
 };
 //перенести потом в другой модуль
 buttonClose.addEventListener('click', () => {
   closeModal(formForPicture);
   imageInput.reset();
+  document.querySelector('.img-upload__preview').style.transform = '';
+  document.querySelector('.effect-level__slider').noUiSlider.reset();
 });
-//перенести потом в другой модуль
+// перенести потом в другой модуль
 document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && document.activeElement !== hashtagsInput) {
+  if (evt.key === 'Escape' && document.activeElement !== hashtagsInput && document.activeElement !== textDescription) {
     closeModal(formForPicture);
     imageInput.reset();
+    document.querySelector('.img-upload__preview').style.transform = '';
+    document.querySelector('.effect-level__slider').noUiSlider.reset();
   }
 });
 
@@ -44,13 +50,24 @@ const hashtagsLength = (value) => hashtag.test(value);
 
 pristine.addValidator(
   hashtagsInput,
-  (value) => value.trim().split(' ').every(hashtagsLength),
+  (value) => {
+    if (value === '') {
+      return true;
+    }
+    return value.trim().split(' ').every(hashtagsLength)
+  }
+  ,
   'Xэш-тег должен начинаться с символа # и быть длинной от 2 до 20 символов'
 );
 
 pristine.addValidator(
   hashtagsInput,
-  (value) => value.trim().split(' ').length < 5,
+  (value) => {
+    if (value === '') {
+      return true;
+    }
+    return value.trim().split(' ').length < 6;
+  },
   'допустимое количество хэш-тегов 5'
 );
 
