@@ -60,7 +60,7 @@ const showAlert = (xxx) => {
       // document.querySelector('.effect-level__slider').noUiSlider.reset();
     }
 
-     thumbnailElement.remove();
+    thumbnailElement.remove();
 
   });
 };

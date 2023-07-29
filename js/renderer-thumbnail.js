@@ -1,4 +1,4 @@
-import { onThumbnailClick } from "./object-picture.js";
+import { onThumbnailClick } from './object-picture.js';
 
 // Функция которая отрисовывает миниатюры
 const rendererThumbnail = (thumbnailPictures) => {

@@ -58,7 +58,7 @@ pristine.addValidator(
     if (value === '') {
       return true;
     }
-    return value.trim().split(' ').every(hashtagsLength)
+    return value.trim().split(' ').every(hashtagsLength);
   }
   ,
   'Xэш-тег должен начинаться с символа # и быть длинной от 2 до 20 символов'

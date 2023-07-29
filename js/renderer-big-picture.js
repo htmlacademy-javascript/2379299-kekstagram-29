@@ -28,18 +28,24 @@ const rendererBigPicture = (data) => {
     rendererBigPictureComments(dataComments, thumbnailElementFragmentComment);
     commentsContainer.innerHTML = '';
     commentsContainer.appendChild(thumbnailElementFragmentComment);
+
+    let text = 0;
     const childNodesArray = Array.from(commentsContainer.childNodes);
     const loadingComments = () => {
       let count = 0;
-      childNodesArray.forEach(element => {
+      childNodesArray.forEach((element) => {
         if (element.classList.contains('hidden')) {
           if(count < 5){
             element.classList.remove('hidden');
             count++;
+            text++;
           }
         }
 
       });
+      document.querySelector ('.social__comment-count').textContent = `${text} из ${childNodesArray.length} комментариев`;
+
+
     };
     loadingComments();
 
