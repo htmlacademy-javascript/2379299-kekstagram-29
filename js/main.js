@@ -2,11 +2,11 @@
 import {rendererThumbnail} from './renderer-thumbnail.js';
 
 // Функция которая отрисовывает большие картинки
-import './object-picture.js';
+// import './object-picture.js';
 import './user-form.js';
 import './scale.js';
 import './slider.js';
-
+import './avatar.js';
 import {setUserFormSubmit, closeModal} from './user-form.js';
 import {getData} from './api.js';
 

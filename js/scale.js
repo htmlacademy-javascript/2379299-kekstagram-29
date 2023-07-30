@@ -13,7 +13,7 @@ const SizePicture = document.querySelector('.img-upload__preview');
 
 battonSmaller.addEventListener('click', () => {
   if (parseInt(inputSizePicture.value, 10) > SCALE.MIN){
-    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) - SCALE.STEP)} + '%'`;
+    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) - SCALE.STEP)}%`;
     SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
 
   }
@@ -21,7 +21,7 @@ battonSmaller.addEventListener('click', () => {
 
 battonBigger.addEventListener('click', () => {
   if (parseInt(inputSizePicture.value, 10) < SCALE.MAX){
-    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) + SCALE.STEP)} + '%'`;
+    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) + SCALE.STEP)}%`;
     SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
   }
 });
