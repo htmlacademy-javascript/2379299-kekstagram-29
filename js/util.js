@@ -1,3 +1,5 @@
+
+import {onEscKeydownListener} from './user-form.js';
 const ALERT_SHOW_TIME = 5000;
 
 const showMessage = (message) => {
@@ -58,10 +60,11 @@ const showAlert = (xxx) => {
       thumbnailElement.remove();
       document.querySelector('.img-upload__preview').style.transform = '';
       // document.querySelector('.effect-level__slider').noUiSlider.reset();
+
     }
 
     thumbnailElement.remove();
-
+    document.addEventListener('keydown', onEscKeydownListener);
   });
 };
 

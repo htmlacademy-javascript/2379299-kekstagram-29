@@ -28,24 +28,28 @@ const rendererBigPicture = ({url,likes, description, comments}) => {
   return commentsContainer;
 };
 
-const loadingComments = (childNodesArray) => {
-  let text = 0;
+const loadingComments = (nodes) => {
+  const childNodesArray = Array.from(nodes.childNodes);
+
   let count = 0;
   childNodesArray.forEach((element) => {
     if (element.classList.contains('hidden')) {
       if(count < 5){
         element.classList.remove('hidden');
         count++;
-        text++;
       }
-    }
-
-    if(text === childNodesArray.length){
-      document.querySelector('.comments-loader').classList.add('hidden');
     }
   });
 
-  document.querySelector ('.social__comment-count').textContent = `${text} из ${childNodesArray.length} комментариев`;
+  const activeCount = childNodesArray.length - nodes.querySelectorAll('.hidden').length;
+
+  if(activeCount === childNodesArray.length){
+    document.querySelector('.comments-loader').classList.add('hidden');
+  } else {
+    document.querySelector('.comments-loader').classList.remove('hidden');
+  }
+  const commentCountText = `${activeCount} из <span class="comments-count">${childNodesArray.length}</span> комментариев`;
+  document.querySelector ('.social__comment-count').innerHTML = commentCountText;
 };
 
 export {rendererBigPicture,loadingComments};

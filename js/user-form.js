@@ -13,6 +13,7 @@ const buttonClose = document.querySelector('.img-upload__cancel');
 const hashtagsInput = formForPicture.querySelector('.text__hashtags');
 const submitButton = formForPicture.querySelector('.img-upload__submit');
 const textDescription = formForPicture.querySelector('.text__description');
+
 //перенести потом в другой модуль imageInput.reset(); 2
 const closeModal = (modal) => {
   modal.classList.add('hidden');
@@ -21,6 +22,7 @@ const closeModal = (modal) => {
   document.querySelector('.img-upload__preview').style.transform = '';
 };
 //перенести потом в другой модуль
+
 buttonClose.addEventListener('click', () => {
   closeModal(formForPicture);
   imageInput.reset();
@@ -29,8 +31,8 @@ buttonClose.addEventListener('click', () => {
   document.querySelector('.img-upload__preview').style.filter = 'none';
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
 });
-// перенести потом в другой модуль
-document.addEventListener('keydown', (evt) => {
+
+const onEscKeydownListener = (evt) => {
   if (evt.key === 'Escape' && document.activeElement !== hashtagsInput && document.activeElement !== textDescription) {
     closeModal(formForPicture);
     imageInput.reset();
@@ -39,7 +41,7 @@ document.addEventListener('keydown', (evt) => {
     document.querySelector('.img-upload__preview').style.filter = 'none';
     document.querySelector('.img-upload__effect-level').classList.add('hidden');
   }
-});
+};
 
 const pristine = new Pristine(imageInput, {
   classTo: 'img-upload__field-wrapper', // Элемент, на который будут добавляться классы
@@ -84,12 +86,14 @@ pristine.addValidator(
   'Xэш-теги должны быть уникальны'
 );
 
+
 imageInput.addEventListener('change', () => {
   formForPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
-
+  document.addEventListener('keydown', onEscKeydownListener);
   pristine.validate();
 });
+
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -114,6 +118,7 @@ const setUserFormSubmit = (onSuccess) => {
           showSuccess();
         })
         .catch(() => {
+          document.removeEventListener('keydown', onEscKeydownListener);
           showError();
         })
         .finally(unblockSubmitButton);
@@ -122,6 +127,6 @@ const setUserFormSubmit = (onSuccess) => {
 };
 
 export {setUserFormSubmit};
-export {closeModal};
+export {closeModal, onEscKeydownListener};
 
 
