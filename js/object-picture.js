@@ -1,29 +1,39 @@
 //Функция которая получает текущий ID из миниатюры
 import {getDataСurrentThumbnail} from './get-data-current-thumbnail.js';
 //Функция которая вставляет данные из миниатюры в большую картинку
-import {rendererBigPicture} from './renderer-big-picture.js';
+import {loadingComments, rendererBigPicture} from './renderer-big-picture.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureSocial = document.querySelector('.big-picture__social');
+const buttonLoadComments = document.querySelector('.comments-loader');
+let currentModalData = null;
+
+const loadCommentsListener = () => {
+  loadingComments(currentModalData);
+};
+
 
 const closeModal = (modal) => {
   modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
-
+  buttonLoadComments.removeEventListener('click', loadCommentsListener);
+  currentModalData = null;
 };
 
 const openModal = (modal) => {
   modal.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  // bigPictureSocial.querySelector('.social__comment-count').classList.add('hidden');
-  // bigPictureSocial.querySelector('.comments-loader').classList.add('hidden');
+
 };
 
 const onThumbnailClick = (evt) => {
+
   evt.preventDefault();
   openModal(bigPicture);
-  const data = getDataСurrentThumbnail(evt.target.id);
-  rendererBigPicture(data);
+  const data = getDataСurrentThumbnail(evt.target.id)[0];
+  currentModalData = rendererBigPicture(data);
+  loadingComments(currentModalData);
+  buttonLoadComments.addEventListener('click', loadCommentsListener);
+
 };
 
 const buttonClose = document.querySelector('.big-picture__cancel');
@@ -36,6 +46,5 @@ document.addEventListener('keydown', (evt) => {
     closeModal(bigPicture);
   }
 });
-
 
 export {onThumbnailClick};
