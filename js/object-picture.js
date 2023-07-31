@@ -5,18 +5,17 @@ import {loadingComments, rendererBigPicture} from './renderer-big-picture.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const buttonLoadComments = document.querySelector('.comments-loader');
-let currentModalData = null;
+let currentPictureData = null;
 
 const loadCommentsListener = () => {
-  loadingComments(currentModalData);
+  loadingComments(currentPictureData);
 };
-
 
 const closeModal = (modal) => {
   modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
   buttonLoadComments.removeEventListener('click', loadCommentsListener);
-  currentModalData = null;
+  currentPictureData = null;
 };
 
 const openModal = (modal) => {
@@ -26,14 +25,12 @@ const openModal = (modal) => {
 };
 
 const onThumbnailClick = (evt) => {
-
   evt.preventDefault();
   openModal(bigPicture);
   const data = getDataСurrentThumbnail(evt.target.id)[0];
-  currentModalData = rendererBigPicture(data);
-  loadingComments(currentModalData);
+  currentPictureData = rendererBigPicture(data);
+  loadingComments(currentPictureData);
   buttonLoadComments.addEventListener('click', loadCommentsListener);
-
 };
 
 const buttonClose = document.querySelector('.big-picture__cancel');

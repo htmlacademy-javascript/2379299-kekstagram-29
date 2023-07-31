@@ -1,6 +1,4 @@
-
 import {sendData} from './api.js';
-// import {showAlertError} from './util.js';
 import {showError, showSuccess} from './util.js';
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -86,14 +84,12 @@ pristine.addValidator(
   'Xэш-теги должны быть уникальны'
 );
 
-
 imageInput.addEventListener('change', () => {
   formForPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeydownListener);
   pristine.validate();
 });
-
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -126,7 +122,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit};
-export {closeModal, onEscKeydownListener};
-
-
+export {setUserFormSubmit, closeModal, onEscKeydownListener};

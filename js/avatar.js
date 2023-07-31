@@ -10,7 +10,6 @@ uploadImg.addEventListener('change', () => {
 
   if (matches) {
     previewImg.src = URL.createObjectURL(file);
-
     // Установка пути к картинке для фонового изображения элемента previewThumbnail
     previewThumbnails.forEach((element) => {
       element.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;

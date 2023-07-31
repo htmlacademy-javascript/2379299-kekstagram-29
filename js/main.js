@@ -1,21 +1,15 @@
-// Функция которая отрисовывает миниатюры
-import {rendererThumbnail} from './renderer-thumbnail.js';
 
-// Функция которая отрисовывает большие картинки
-// import './object-picture.js';
+import {rendererThumbnail} from './renderer-thumbnail.js';
 import './user-form.js';
 import './scale.js';
 import './slider.js';
 import './avatar.js';
 import {setUserFormSubmit, closeModal} from './user-form.js';
 import {getData} from './api.js';
-
-let allObjects = [];
-export{allObjects };
-
 import {showMessage} from './util.js';
 import { setDefaultsClick, setRandomClick, setDiscussedClick } from './sort.js';
 
+let allObjects = [];
 
 getData()
   .then((postArray) => {
@@ -33,3 +27,4 @@ getData()
   );
 setUserFormSubmit(closeModal);
 
+export{allObjects };
