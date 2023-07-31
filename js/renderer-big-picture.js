@@ -2,7 +2,6 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureSocial = document.querySelector('.big-picture__social');
 const commentsContainer = document.querySelector('.social__comments');
 
-
 const rendererBigPictureComments = (dataComments, thumbnailElementFragmentComment) => {
   const templateComments = document.querySelector('.social__comment');
 

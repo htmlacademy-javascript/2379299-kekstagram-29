@@ -1,6 +1,8 @@
-
 import {onEscKeydownListener} from './user-form.js';
+
 const ALERT_SHOW_TIME = 5000;
+const templateErrorAlert = document.querySelector('#error').content.querySelector('.error');
+const templateSuccessAlert = document.querySelector('#success').content.querySelector('.success');
 
 const showMessage = (message) => {
   const alertContainer = document.createElement('div');
@@ -22,10 +24,6 @@ const showMessage = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-
-const templateErrorAlert = document.querySelector('#error').content.querySelector('.error');
-const templateSuccessAlert = document.querySelector('#success').content.querySelector('.success');
-
 
 const showAlert = (xxx) => {
   const thumbnailElement = xxx.cloneNode(true);
