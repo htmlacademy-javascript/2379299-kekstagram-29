@@ -34,13 +34,11 @@ const removeFilters = () =>{
   );
 };
 
-const setDefaultsClick = (data, cb) => {
-  buttonFilterDefault.addEventListener('click', () => {
-    removeAllImages();
-    removeFilters();
-    buttonFilterDefault.classList.add('img-filters__button--active');
-    cb(data);
-  });
+const onDefaultsClick = (data, cb) => () => {
+  removeAllImages();
+  removeFilters();
+  buttonFilterDefault.classList.add('img-filters__button--active');
+  cb(data);
 };
 
 const setRandomClick = (data, cb) => {
@@ -49,37 +47,41 @@ const setRandomClick = (data, cb) => {
     dataRandom = getRandomElements(data, COUNT_IMG);
     removeAllImages();
     cb(dataRandom);
-
   };
 
   const debouncedRender = debounce(renderDataRandom, RERENDER_DELAY);
 
-  buttonFilterRandom.addEventListener('click', () => {
+  const onRandomClick = () => {
     debouncedRender();
     removeFilters();
     buttonFilterRandom.classList.add('img-filters__button--active');
+  };
+
+  buttonFilterRandom.addEventListener('click', onRandomClick);
+};
+
+const onDiscussedClick = (data, cb) => () => {
+  removeFilters();
+  removeAllImages();
+  buttonFilterDiscussed.classList.add('img-filters__button--active');
+  const result = [...data].sort((a, b) => {
+    if (b.comments.length > a.comments.length) {
+      return 1;
+    }
+    if (b.comments.length < a.comments.length) {
+      return -1;
+    }
+    return 0;
   });
+  cb(result);
+};
+
+const setDefaultsClick = (data, cb) => {
+  buttonFilterDefault.addEventListener('click', onDefaultsClick(data, cb));
 };
 
 const setDiscussedClick = (data, cb) => {
-
-  buttonFilterDiscussed.addEventListener('click', () => {
-    removeFilters();
-    removeAllImages();
-    buttonFilterDiscussed.classList.add('img-filters__button--active');
-    const result = [...data].sort((a, b) => {
-      if (b.comments.length > a.comments.length) {
-        return 1;
-      }
-      if (b.comments.length < a.comments.length) {
-        return -1;
-      }
-      return 0;
-    });
-    cb(result);
-  });
+  buttonFilterDiscussed.addEventListener('click', onDiscussedClick(data, cb));
 };
 
 export {setDefaultsClick, setRandomClick, setDiscussedClick};
-
-

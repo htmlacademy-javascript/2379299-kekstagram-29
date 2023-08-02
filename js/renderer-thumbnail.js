@@ -1,11 +1,8 @@
 import { onThumbnailClick } from './object-picture.js';
 
-// Функция которая отрисовывает миниатюры
 const rendererThumbnail = (thumbnailPictures) => {
   const thumbnailElementFragment = document.createDocumentFragment();
-  // Контейнер для изображений от других пользователей
   const picturesContainer = document.querySelector('.pictures');
-  // Шаблон изображения случайного пользователя
   const templatePicture = document.querySelector('#picture').content.querySelector('A');
   const filtersContainer = document.querySelector('.img-filters');
   filtersContainer.classList.remove('img-filters--inactive');
@@ -17,9 +14,7 @@ const rendererThumbnail = (thumbnailPictures) => {
     thumbnailElement.querySelector('.picture__img').alt = description;
     thumbnailElement.querySelector('.picture__likes').textContent = likes;
     thumbnailElement.querySelector('.picture__comments').textContent = comments.length;
-
     thumbnailElement.addEventListener('click', onThumbnailClick);
-
     thumbnailElementFragment.appendChild(thumbnailElement);
   });
 

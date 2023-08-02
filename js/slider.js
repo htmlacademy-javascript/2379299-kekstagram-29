@@ -1,4 +1,3 @@
-// Объект с настройками для каждого эффекта
 const effects = {
   chrome: {
     name: 'grayscale',
@@ -36,7 +35,6 @@ const effects = {
     unit: '',
   }
 };
-
 
 const valueEffect = document.querySelector('.effect-level__value');//Уровень эффекта записываем значение слайдера
 const imgPreview = document.querySelector('.img-upload__preview');//Изображение на которое накладываются фильтры
@@ -82,12 +80,13 @@ const onEffectsClick = (evt) => {
   }
 };
 
-sliderElement.noUiSlider.on('update', () => {
+const onSliderUpdate = () => {
   valueEffect.value = sliderElement.noUiSlider.get();
   if(effectName && effects[effectName]) {
     imgPreview.style.filter = `${effects[effectName].name}(${valueEffect.value}${effects[effectName].unit})`;
   }
 
-});
+};
 
 effectsList.addEventListener('click', onEffectsClick);
+sliderElement.noUiSlider.on('update', onSliderUpdate);
