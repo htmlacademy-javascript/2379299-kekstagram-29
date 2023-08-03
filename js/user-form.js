@@ -13,6 +13,7 @@ const hashtagsInput = formForPicture.querySelector('.text__hashtags');
 const submitButton = formForPicture.querySelector('.img-upload__submit');
 const textDescription = formForPicture.querySelector('.text__description');
 
+
 const closeModal = () => {
   formForPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -21,6 +22,12 @@ const closeModal = () => {
   document.querySelector('.effect-level__slider').noUiSlider.reset();
   document.querySelector('.img-upload__preview').style.filter = 'none';
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
+  cleanEvents();
+};
+
+const cleanEvents = () => {
+  buttonClose.removeEventListener('click', onButtonCloseClick);
+  document.removeEventListener('keydown', onEscKeydownListener);
 };
 
 const onButtonCloseClick = () => {
@@ -32,6 +39,7 @@ const onEscKeydownListener = (evt) => {
     closeModal();
   }
 };
+
 
 const pristine = new Pristine(imageInput, {
   classTo: 'img-upload__field-wrapper',
@@ -78,6 +86,7 @@ const onImageInputChange = () => {
   formForPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeydownListener);
+  buttonClose.addEventListener('click', onButtonCloseClick);
   pristine.validate();
 };
 
@@ -103,14 +112,13 @@ const onFormSubmit = (evt) => {
         showSuccess();
       })
       .catch(() => {
-        document.removeEventListener('keydown', onEscKeydownListener);
+        // document.removeEventListener('keydown', onEscKeydownListener);
         showError();
       })
       .finally(unblockSubmitButton);
   }
 };
 
-buttonClose.addEventListener('click', onButtonCloseClick);
 imageInput.addEventListener('change', onImageInputChange);
 imageInput.addEventListener('submit', (evt) => onFormSubmit(evt));
 

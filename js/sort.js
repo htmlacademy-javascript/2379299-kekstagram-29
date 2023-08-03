@@ -34,12 +34,13 @@ const removeFilters = () =>{
   );
 };
 
-const onDefaultsClick = (data, cb) => () => {
+const onDefaultsClick = (data, cb) => debounce(() => {
   removeAllImages();
   removeFilters();
   buttonFilterDefault.classList.add('img-filters__button--active');
   cb(data);
-};
+},RERENDER_DELAY);
+
 
 const setRandomClick = (data, cb) => {
   let dataRandom; // Объявляем dataRandom здесь, чтобы его можно было использовать внутри обеих функций
@@ -60,7 +61,7 @@ const setRandomClick = (data, cb) => {
   buttonFilterRandom.addEventListener('click', onRandomClick);
 };
 
-const onDiscussedClick = (data, cb) => () => {
+const onDiscussedClick = (data, cb) => debounce(() => {
   removeFilters();
   removeAllImages();
   buttonFilterDiscussed.classList.add('img-filters__button--active');
@@ -74,7 +75,7 @@ const onDiscussedClick = (data, cb) => () => {
     return 0;
   });
   cb(result);
-};
+}, RERENDER_DELAY);
 
 const setDefaultsClick = (data, cb) => {
   buttonFilterDefault.addEventListener('click', onDefaultsClick(data, cb));
