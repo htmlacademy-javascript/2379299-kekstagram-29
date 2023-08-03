@@ -57,10 +57,10 @@ const showAlert = (parent) => {
     }
   };
 
-  const cleanEvents = () => {
+  function cleanEvents() {
     document.removeEventListener('click', onButtonCloseClick);
     document.removeEventListener('keydown', onEscapeKeyPress);
-  };
+  }
 
   button.addEventListener('click', () => {
     if(parent === templateSuccessAlert){

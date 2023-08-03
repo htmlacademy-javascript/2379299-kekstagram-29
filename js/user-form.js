@@ -13,6 +13,10 @@ const hashtagsInput = formForPicture.querySelector('.text__hashtags');
 const submitButton = formForPicture.querySelector('.img-upload__submit');
 const textDescription = formForPicture.querySelector('.text__description');
 
+const cleanEvents = () => {
+  buttonClose.removeEventListener('click', onButtonCloseClick);
+  document.removeEventListener('keydown', onEscKeydownListener);
+};
 
 const closeModal = () => {
   formForPicture.classList.add('hidden');
@@ -25,21 +29,15 @@ const closeModal = () => {
   cleanEvents();
 };
 
-const cleanEvents = () => {
-  buttonClose.removeEventListener('click', onButtonCloseClick);
-  document.removeEventListener('keydown', onEscKeydownListener);
-};
-
-const onButtonCloseClick = () => {
+function onButtonCloseClick() {
   closeModal();
-};
+}
 
-const onEscKeydownListener = (evt) => {
+function onEscKeydownListener(evt) {
   if (evt.key === 'Escape' && document.activeElement !== hashtagsInput && document.activeElement !== textDescription) {
     closeModal();
   }
-};
-
+}
 
 const pristine = new Pristine(imageInput, {
   classTo: 'img-upload__field-wrapper',
@@ -112,7 +110,7 @@ const onFormSubmit = (evt) => {
         showSuccess();
       })
       .catch(() => {
-        // document.removeEventListener('keydown', onEscKeydownListener);
+        document.removeEventListener('keydown', onEscKeydownListener);
         showError();
       })
       .finally(unblockSubmitButton);
@@ -120,6 +118,6 @@ const onFormSubmit = (evt) => {
 };
 
 imageInput.addEventListener('change', onImageInputChange);
-imageInput.addEventListener('submit', (evt) => onFormSubmit(evt));
+imageInput.addEventListener('submit', onFormSubmit);
 
 export {closeModal, onEscKeydownListener};

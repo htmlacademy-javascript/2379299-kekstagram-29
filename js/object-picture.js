@@ -20,15 +20,15 @@ const closeModal = () => {
   currentPictureData = null;
 };
 
-const onEscapeKeyPress = (evt) => {
+function onEscapeKeyPress(evt) {
   if (evt.key === 'Escape') {
     closeModal();
   }
-};
+}
 
-const onButtonCloseClick = () => {
+function onButtonCloseClick() {
   closeModal();
-};
+}
 
 const openModal = () => {
   bigPicture.classList.remove('hidden');
