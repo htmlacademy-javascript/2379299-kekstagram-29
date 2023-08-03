@@ -34,14 +34,13 @@ const removeFilters = () =>{
   );
 };
 
-const setDefaultsClick = (data, cb) => {
-  buttonFilterDefault.addEventListener('click', () => {
-    removeAllImages();
-    removeFilters();
-    buttonFilterDefault.classList.add('img-filters__button--active');
-    cb(data);
-  });
-};
+const onDefaultsClick = (data, cb) => debounce(() => {
+  removeAllImages();
+  removeFilters();
+  buttonFilterDefault.classList.add('img-filters__button--active');
+  cb(data);
+},RERENDER_DELAY);
+
 
 const setRandomClick = (data, cb) => {
   let dataRandom; // Объявляем dataRandom здесь, чтобы его можно было использовать внутри обеих функций
@@ -49,37 +48,41 @@ const setRandomClick = (data, cb) => {
     dataRandom = getRandomElements(data, COUNT_IMG);
     removeAllImages();
     cb(dataRandom);
-
   };
 
   const debouncedRender = debounce(renderDataRandom, RERENDER_DELAY);
 
-  buttonFilterRandom.addEventListener('click', () => {
+  const onRandomClick = () => {
     debouncedRender();
     removeFilters();
     buttonFilterRandom.classList.add('img-filters__button--active');
+  };
+
+  buttonFilterRandom.addEventListener('click', onRandomClick);
+};
+
+const onDiscussedClick = (data, cb) => debounce(() => {
+  removeFilters();
+  removeAllImages();
+  buttonFilterDiscussed.classList.add('img-filters__button--active');
+  const result = [...data].sort((a, b) => {
+    if (b.comments.length > a.comments.length) {
+      return 1;
+    }
+    if (b.comments.length < a.comments.length) {
+      return -1;
+    }
+    return 0;
   });
+  cb(result);
+}, RERENDER_DELAY);
+
+const setDefaultsClick = (data, cb) => {
+  buttonFilterDefault.addEventListener('click', onDefaultsClick(data, cb));
 };
 
 const setDiscussedClick = (data, cb) => {
-
-  buttonFilterDiscussed.addEventListener('click', () => {
-    removeFilters();
-    removeAllImages();
-    buttonFilterDiscussed.classList.add('img-filters__button--active');
-    const result = [...data].sort((a, b) => {
-      if (b.comments.length > a.comments.length) {
-        return 1;
-      }
-      if (b.comments.length < a.comments.length) {
-        return -1;
-      }
-      return 0;
-    });
-    cb(result);
-  });
+  buttonFilterDiscussed.addEventListener('click', onDiscussedClick(data, cb));
 };
 
 export {setDefaultsClick, setRandomClick, setDiscussedClick};
-
-

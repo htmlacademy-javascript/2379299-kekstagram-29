@@ -15,9 +15,7 @@ const showMessage = (message) => {
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = 'red';
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {
@@ -25,45 +23,56 @@ const showMessage = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const showAlert = (xxx) => {
-  const thumbnailElement = xxx.cloneNode(true);
+const showAlert = (parent) => {
+  const thumbnailElement = parent.cloneNode(true);
   document.body.append(thumbnailElement);
   const button = thumbnailElement.querySelector('button');
   const Inner = thumbnailElement.querySelector('div');
   const successTitle = thumbnailElement.querySelector ('h2');
 
-  button.addEventListener('click', () => {
-    if(xxx === templateSuccessAlert){
-      thumbnailElement.remove();
-      document.querySelector('.img-upload__preview').style.transform = '';
-      document.querySelector('.effect-level__slider').noUiSlider.reset();
-      document.querySelector('.img-upload__effect-level').classList.add('hidden');
-    }
-  });
-
-  document.addEventListener('click', (evt) => {
+  const onButtonCloseClick = (evt) => {
     if (evt.target !== Inner && evt.target !== successTitle) {
       thumbnailElement.remove();
     }
-    if(xxx === templateSuccessAlert){
+    if(parent === templateSuccessAlert){
       thumbnailElement.remove();
       document.querySelector('.img-upload__preview').style.transform = '';
       document.querySelector('.effect-level__slider').noUiSlider.reset();
       document.querySelector('.img-upload__effect-level').classList.add('hidden');
     }
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' && xxx === templateSuccessAlert) {
+    cleanEvents();
+  };
+  const onEscapeKeyPress = (evt) => {
+    if (evt.key === 'Escape' && parent === templateSuccessAlert) {
       thumbnailElement.remove();
       document.querySelector('.img-upload__preview').style.transform = '';
       // document.querySelector('.effect-level__slider').noUiSlider.reset();
-
     }
 
     thumbnailElement.remove();
-    document.addEventListener('keydown', onEscKeydownListener);
-  });
+    cleanEvents();
+
+    if (parent !== templateSuccessAlert) {
+      document.addEventListener('keydown', onEscKeydownListener);
+    }
+  };
+
+  function cleanEvents() {
+    document.removeEventListener('click', onButtonCloseClick);
+    document.removeEventListener('keydown', onEscapeKeyPress);
+  }
+
+  button.addEventListener('click', () => {
+    if(parent === templateSuccessAlert){
+      thumbnailElement.remove();
+      document.querySelector('.img-upload__preview').style.transform = '';
+      document.querySelector('.effect-level__slider').noUiSlider.reset();
+      document.querySelector('.img-upload__effect-level').classList.add('hidden');
+    }
+  }, {once: true});
+
+  document.addEventListener('click', onButtonCloseClick);
+  document.addEventListener('keydown', onEscapeKeyPress);
 };
 
 const showError = () => showAlert(templateErrorAlert);

@@ -4,24 +4,29 @@ const SCALE = {
   STEP: 25,
 };
 
-const battonSmaller = document.querySelector('.scale__control--smaller');//Кнопка при нажатии на которую должен уменьшаться масштаб изображения
-const battonBigger = document.querySelector('.scale__control--bigger');//Кнопка при нажатии на которую должен увеличиваться масштаб изображения
-const inputSizePicture = document.querySelector('.scale__control--value');//Поле c размером изображения
+const battonSmaller = document.querySelector('.scale__control--smaller');
+const battonBigger = document.querySelector('.scale__control--bigger');
+const inputSizePicture = document.querySelector('.scale__control--value');
 const SizePicture = document.querySelector('.img-upload__preview');
 
-battonSmaller.addEventListener('click', () => {
-  if (parseInt(inputSizePicture.value, 10) > SCALE.MIN){
-    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) - SCALE.STEP)}%`;
-    SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
-
+const updateImageSize = (data) => {
+  const currentValue = parseInt(inputSizePicture.value, 10);
+  if(data === 'smaller' && currentValue > SCALE.MIN) {
+    inputSizePicture.value = `${currentValue - SCALE.STEP}%`;
   }
-});
-
-battonBigger.addEventListener('click', () => {
-  if (parseInt(inputSizePicture.value, 10) < SCALE.MAX){
-    inputSizePicture.value = `${(parseInt(inputSizePicture.value, 10) + SCALE.STEP)}%`;
-    SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
+  if(data === 'bigger' && currentValue < SCALE.MAX) {
+    inputSizePicture.value = `${currentValue + SCALE.STEP}%`;
   }
-});
+  SizePicture.style.transform = `scale(${parseInt(inputSizePicture.value, 10) * 0.01})`;
+};
 
+const onSmallerClick = () => {
+  updateImageSize('smaller');
+};
 
+const onBiggerClick = () => {
+  updateImageSize('bigger');
+};
+
+battonSmaller.addEventListener('click', onSmallerClick);
+battonBigger.addEventListener('click', onBiggerClick);

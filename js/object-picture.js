@@ -1,47 +1,49 @@
-//Функция которая получает текущий ID из миниатюры
-import {getDataСurrentThumbnail} from './get-data-current-thumbnail.js';
-//Функция которая вставляет данные из миниатюры в большую картинку
+import {getCurrentThumbnailData} from './get-data-current-thumbnail.js';
 import {loadingComments, rendererBigPicture} from './renderer-big-picture.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const buttonLoadComments = document.querySelector('.comments-loader');
+const buttonClose = document.querySelector('.big-picture__cancel');
+
 let currentPictureData = null;
 
-const loadCommentsListener = () => {
+const onLoadComments = () => {
   loadingComments(currentPictureData);
 };
 
-const closeModal = (modal) => {
-  modal.classList.add('hidden');
+const closeModal = () => {
+  bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  buttonLoadComments.removeEventListener('click', loadCommentsListener);
+  buttonLoadComments.removeEventListener('click', onLoadComments);
+  document.removeEventListener('keydown', onEscapeKeyPress);
+  buttonClose.removeEventListener('click', onButtonCloseClick);
   currentPictureData = null;
 };
 
-const openModal = (modal) => {
-  modal.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+function onEscapeKeyPress(evt) {
+  if (evt.key === 'Escape') {
+    closeModal();
+  }
+}
 
+function onButtonCloseClick() {
+  closeModal();
+}
+
+const openModal = () => {
+  bigPicture.classList.remove('hidden');
+  document.body.classList.add('modal-open');
 };
 
 const onThumbnailClick = (evt) => {
   evt.preventDefault();
-  openModal(bigPicture);
-  const data = getDataСurrentThumbnail(evt.target.id)[0];
+  openModal();
+  const data = getCurrentThumbnailData(evt.target.id)[0];
   currentPictureData = rendererBigPicture(data);
   loadingComments(currentPictureData);
-  buttonLoadComments.addEventListener('click', loadCommentsListener);
+  buttonLoadComments.addEventListener('click', onLoadComments);
+  document.addEventListener('keydown', onEscapeKeyPress);
+  buttonClose.addEventListener('click', onButtonCloseClick);
 };
-
-const buttonClose = document.querySelector('.big-picture__cancel');
-buttonClose.addEventListener('click', () => {
-  closeModal(bigPicture);
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    closeModal(bigPicture);
-  }
-});
 
 export {onThumbnailClick};
