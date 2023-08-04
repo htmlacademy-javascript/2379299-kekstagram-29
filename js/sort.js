@@ -1,7 +1,5 @@
-import {debounce} from './util.js';
-
 const COUNT_IMG = 10;
-const RERENDER_DELAY = 500;
+
 const buttonFilterDefault = document.querySelector('#filter-default');
 const buttonFilterRandom = document.querySelector('#filter-random');
 const buttonFilterDiscussed = document.querySelector('#filter-discussed');
@@ -21,49 +19,27 @@ function getRandomElements(arr, count) {
   return shuffled.slice(min);
 }
 
-const removeAllImages = () => {
-  const allImg = document.querySelectorAll('a.picture');
-  allImg.forEach((img) => {
-    img.remove();
-  });
-};
-
-const removeFilters = () =>{
+const removeFilters = () => {
   const filterButtons = document.querySelectorAll('.img-filters__button');
   filterButtons.forEach((button) => button.classList.remove('img-filters__button--active')
   );
 };
 
-const onDefaultsClick = (data, cb) => debounce(() => {
-  removeAllImages();
+const onDefaultsClick = (data, cb) => {
   removeFilters();
   buttonFilterDefault.classList.add('img-filters__button--active');
   cb(data);
-},RERENDER_DELAY);
-
-
-const setRandomClick = (data, cb) => {
-  let dataRandom; // Объявляем dataRandom здесь, чтобы его можно было использовать внутри обеих функций
-  const renderDataRandom = () => {
-    dataRandom = getRandomElements(data, COUNT_IMG);
-    removeAllImages();
-    cb(dataRandom);
-  };
-
-  const debouncedRender = debounce(renderDataRandom, RERENDER_DELAY);
-
-  const onRandomClick = () => {
-    debouncedRender();
-    removeFilters();
-    buttonFilterRandom.classList.add('img-filters__button--active');
-  };
-
-  buttonFilterRandom.addEventListener('click', onRandomClick);
 };
 
-const onDiscussedClick = (data, cb) => debounce(() => {
+const onRandomClick = (data, cb) => {
   removeFilters();
-  removeAllImages();
+  buttonFilterRandom.classList.add('img-filters__button--active');
+  const result = getRandomElements(data, COUNT_IMG);
+  cb(result);
+};
+
+const onDiscussedClick = (data, cb) => {
+  removeFilters();
   buttonFilterDiscussed.classList.add('img-filters__button--active');
   const result = [...data].sort((a, b) => {
     if (b.comments.length > a.comments.length) {
@@ -75,14 +51,24 @@ const onDiscussedClick = (data, cb) => debounce(() => {
     return 0;
   });
   cb(result);
-}, RERENDER_DELAY);
+};
 
 const setDefaultsClick = (data, cb) => {
-  buttonFilterDefault.addEventListener('click', onDefaultsClick(data, cb));
+  buttonFilterDefault.addEventListener('click', () => {
+    onDefaultsClick(data, cb);
+  });
 };
 
 const setDiscussedClick = (data, cb) => {
-  buttonFilterDiscussed.addEventListener('click', onDiscussedClick(data, cb));
+  buttonFilterDiscussed.addEventListener('click', () => {
+    onDiscussedClick(data, cb);
+  });
+};
+
+const setRandomClick = (data, cb) => {
+  buttonFilterRandom.addEventListener('click', () => {
+    onRandomClick(data, cb);
+  });
 };
 
 export {setDefaultsClick, setRandomClick, setDiscussedClick};
