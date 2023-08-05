@@ -3,9 +3,14 @@ import { onThumbnailClick } from './object-picture.js';
 const rendererThumbnail = (thumbnailPictures) => {
   const thumbnailElementFragment = document.createDocumentFragment();
   const picturesContainer = document.querySelector('.pictures');
+  const allImg = picturesContainer.querySelectorAll('a.picture');
   const templatePicture = document.querySelector('#picture').content.querySelector('A');
   const filtersContainer = document.querySelector('.img-filters');
   filtersContainer.classList.remove('img-filters--inactive');
+
+  allImg.forEach((img) => {
+    img.remove();
+  });
 
   thumbnailPictures.forEach(({url, description, likes, comments, id})=>{
     const thumbnailElement = templatePicture.cloneNode(true);
@@ -19,7 +24,6 @@ const rendererThumbnail = (thumbnailPictures) => {
   });
 
   picturesContainer.appendChild(thumbnailElementFragment);
-
 };
 
 export {rendererThumbnail};
